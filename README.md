@@ -1,2 +1,13 @@
-# something-new
-Something new.
+# Something New
+
+> Something new.
+
+### Usage
+
+Start the project:
+
+```
+deno task start
+```
+
+This will watch the project directory and restart as necessary.
