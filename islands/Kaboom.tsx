@@ -8,9 +8,14 @@ const canvasRef = (canvas: HTMLCanvasElement | null) => {
     return;
   }
 
-  const { protocol, host } = location;
-  const s = protocol.includes("s");
-  const ws = new WebSocket(`ws${s ? "s" : ""}://${host}/api/socket`);
+  const { drawLines, mousePos, onDraw, onUpdate, rgb, vec2 } = kaboom({
+    global: false,
+    canvas,
+  });
+
+  const { host, protocol: p } = location;
+  const protocol = `ws${p.endsWith("s:") ? "s" : ""}:`;
+  const ws = new WebSocket(`${protocol}//${host}/api/socket`);
 
   ws.addEventListener("message", ({ data }) => {
     const { id, value } = JSON.parse(data, (k, v) => {
@@ -19,11 +24,6 @@ const canvasRef = (canvas: HTMLCanvasElement | null) => {
         : v;
     });
     trails.set(id, value);
-  });
-
-  const { onDraw, onUpdate, drawLines, rgb, mousePos, vec2 } = kaboom({
-    canvas,
-    global: false,
   });
 
   onDraw(() => {
