@@ -1,7 +1,7 @@
-import kaboom from "kaboom";
+import kaboom, { type Vec2 } from "kaboom";
 
 const trails = new Map();
-const trail = [];
+const trail: Vec2[] = [];
 
 const canvasRef = (canvas: HTMLCanvasElement | null) => {
   if (!canvas) {
